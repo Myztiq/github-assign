@@ -67,7 +67,7 @@ const run = async () => {
     `Assigning reviewer of pr ${pull_request.number} to ${JSON.stringify(newReviewer)}`
   );
   try {
-    await octokit.pulls.createReviewRequest({
+    await octokit.pulls.requestReviewers({
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
       pull_number: github.context.payload.pull_request.number,
