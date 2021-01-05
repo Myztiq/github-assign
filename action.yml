@@ -1,4 +1,4 @@
-name: 'Rotating Auto-assign Issue'
+name: 'Weekly auto assign code buddies'
 description: 'Auto-assigns issues to users for a given week'
 inputs:
   repo-token:
