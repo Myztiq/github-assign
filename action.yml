@@ -1,0 +1,17 @@
+name: 'Rotating Auto-assign Issue'
+description: 'Auto-assigns issues to users for a given week'
+inputs:
+  repo-token:
+    description: 'The GITHUB_TOKEN, needed to update the Issue'
+    required: true
+  assignees:
+    description: 'Comma separated list of user names'
+    required: true
+
+runs:
+  using: 'node12'
+  main: 'src/index.js'
+
+branding:
+  icon: 'alert-circle'
+  color: 'red'

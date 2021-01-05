@@ -1,0 +1,14 @@
+{
+  "name": "github-assign",
+  "version": "0.0.0",
+  "description": "Auto Assign review partners for a given week",
+  "main": "index.js",
+  "author": "Ryan Kahn",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0",
+    "chance": "^1.1.7"
+  }
+}
