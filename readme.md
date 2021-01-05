@@ -22,8 +22,8 @@ jobs:
     auto-assign:
         runs-on: ubuntu-latest
         steps:
-            - name: 'Auto-assign issue'
-              uses: myztiq/auto-assign-issue@v1
+            - name: 'Weekly auto assign code buddies'
+              uses: Myztiq/github-assign@0.0.2
               with:
                   repo-token: ${{ secrets.GITHUB_TOKEN }}
                   assignees: octocat, octocat1
