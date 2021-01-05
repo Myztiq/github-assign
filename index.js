@@ -42,11 +42,10 @@ const run = async () => {
   const octokit = github.getOctokit(gitHubToken);
 
   // Get repo and issue info
-  const { repository, issue, sender } = github.context.payload;
-  if (!issue) {
-    throw new Error(`Couldn't find issue info in current context`);
+  const { pull_request } = github.context.payload;
+  if (!pull_request) {
+    throw new Error(`Couldn't find PR info in current context`);
   }
-  const [owner, repo] = repository.full_name.split('/');
 
   // Get issue assignees
   const assigneesString = core.getInput('assignees', { required: true });
@@ -57,18 +56,22 @@ const run = async () => {
   // Get assignment mapping
   const mapping = generateMapping(assignees)
 
-  const newAssignee = mapping[sender]
+  const newReviewer = mapping[pull_request.user.login]
+
+  if (!newReviewer) {
+    throw new Error(`User: ${pull_request.user.login} is not in the list of users in code review buddy rotation`)
+  }
 
   // Assign issue
   console.log(
-    `Assigning issue ${issue.number} to ${JSON.stringify(newAssignee)}`
+    `Assigning reviewer of pr ${pull_request.number} to ${JSON.stringify(newReviewer)}`
   );
   try {
-    await octokit.issues.addAssignees({
-      owner,
-      repo,
-      issue_number: issue.number,
-      assignees: [newAssignee]
+    await octokit.pulls.createReviewRequest({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      pull_number: github.context.payload.pull_request.number,
+      reviewers: [newReviewer],
     });
   } catch (error) {
     core.setFailed(error.message);

@@ -15,7 +15,7 @@ Here's an example flow that auto-assigns tickets between two users:
 name: Issue assignment
 
 on:
-    issues:
+  pull_request:
         types: [opened]
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: 'Weekly auto assign code buddies'
-              uses: Myztiq/github-assign@0.0.2
+              uses: Myztiq/github-assign@0.0.3
               with:
                   repo-token: ${{ secrets.GITHUB_TOKEN }}
                   assignees: octocat, octocat1
